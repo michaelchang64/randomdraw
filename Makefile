@@ -11,4 +11,4 @@ randomselect: randomselect.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	$(RM) randomselect *~
+	$(RM) -rf  randomselect *~ *.dSYM
