@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <math.h>
+#include <assert.h>
 #include <string.h>
 
 void randomSelect(char *x, char *y) {
@@ -17,20 +17,42 @@ void randomSelect(char *x, char *y) {
     } while(a == b);
 }
 
+//TODO implement the while loop stuff into sep function
+//void *dynStrRealloc(**
+
 int main(int argc, char **argv) {
-    char *x = malloc(sizeof(x) * 50);
-    char *y = malloc(sizeof(y) * 50);
+    char c;
+    int size = 1;
+    int count = 0;
+
+    char *name1 = malloc(sizeof(char) * size);
+    assert(name1);
+    char *name2 = malloc(sizeof(char) * size);
+    assert(name2);
 
     printf("Enter name: ");
-    scanf("%s", x);
-    printf("\nEnter name: ");
-    scanf("%s", y);
-    
-    // This doesn't work for some reason
-    if(strncmp(x, y, 6)){
-        exit(-1);
-    } else {
-        randomSelect(x, y);
+    while((c = getchar()) != '\n') {
+        while(count >= size) {
+            name1 = realloc(name1, sizeof(char) * (size*=2));
+            assert(name1);
+        }
+        name1[count] = c;
+        count++;
     }
+    count = 0;
+
+    printf("\nEnter name: ");
+    while((c = getchar()) != '\n') {
+        while(count >= size) {
+            name2 = realloc(name2, sizeof(char) * (size*=2));
+            assert(name2);
+        }
+        name2[count] = c;
+        count++;
+    }
+
+    randomSelect(name1, name2);
+    free(name1);
+    free(name2);
     return 0;
 }
